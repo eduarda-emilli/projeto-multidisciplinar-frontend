@@ -1,4 +1,5 @@
-﻿:root {
+﻿/* Estrutura separada e organizada por pastas */
+:root {
   --bg: #f7e9d3;
   --bg-2: #efd8b2;
   --surface: #fffaf1;
@@ -734,3 +735,4 @@ body[data-channel="totem"] .site-footer {
     opacity: 1;
   }
 }
+

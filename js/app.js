@@ -1,4 +1,5 @@
-﻿const state = {
+﻿// Estrutura separada e organizada por pastas
+const state = {
   route: "home",
   users: [],
   user: null,
@@ -574,3 +575,4 @@ async function init() {
 }
 
 init();
+
