@@ -1,0 +1,27 @@
+﻿<section class="screen" id="screen-cardapio" data-screen="cardapio">
+  <article class="panel">
+    <div class="panel-head">
+      <h2>Cardápio</h2>
+      <p class="muted">Selecione os itens para seu carrinho.</p>
+    </div>
+    <div class="panel-filters">
+      <label for="unit-select">Unidade</label>
+      <select id="unit-select">
+        <option value="centro">Centro</option>
+        <option value="shopping">Shopping</option>
+        <option value="bairro">Bairro</option>
+      </select>
+      <p class="muted">Canal ativo: <strong id="active-channel">Web</strong></p>
+      <p class="channel-note" id="channel-note-cardapio"></p>
+    </div>
+    <div class="menu-checkout">
+      <p>Itens no carrinho: <strong id="quick-items">0</strong></p>
+      <p>Total parcial: <strong id="quick-total">R$ 0,00</strong></p>
+      <div class="split-actions">
+        <button class="btn btn--soft" data-route="carrinho">Revisar carrinho</button>
+        <button class="btn btn--primary" id="quick-pay-btn" data-route="pagamento" disabled>Pagar agora</button>
+      </div>
+    </div>
+    <div class="menu-grid" id="menu-grid"></div>
+  </article>
+</section>

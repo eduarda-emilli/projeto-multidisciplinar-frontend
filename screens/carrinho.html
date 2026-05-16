@@ -1,0 +1,26 @@
+﻿<section class="screen" id="screen-carrinho" data-screen="carrinho">
+  <article class="panel">
+    <h2>Carrinho</h2>
+    <div id="cart-list" class="cart-list"></div>
+    <div class="coupon-box">
+      <label for="coupon-select">Cupom</label>
+      <select id="coupon-select">
+        <option value="none">Sem cupom</option>
+        <option value="bemvindo10">BEMVINDO10 (10% OFF)</option>
+        <option value="nordeste15">NORDESTE15 (15% OFF acima de R$ 60)</option>
+        <option value="menos5">MENOS5 (R$ 5,00 OFF)</option>
+      </select>
+      <p class="channel-note" id="channel-note-carrinho"></p>
+    </div>
+    <div class="totals">
+      <p>Subtotal <span id="subtotal">R$ 0,00</span></p>
+      <p>Desconto cupom <span id="desconto-cupom">R$ 0,00</span></p>
+      <p>Desconto fidelidade <span id="desconto">R$ 0,00</span></p>
+      <p class="total">Total <span id="total">R$ 0,00</span></p>
+    </div>
+    <div class="split-actions">
+      <button class="btn btn--soft" data-route="cardapio">Adicionar mais itens</button>
+      <button class="btn btn--primary" data-route="pagamento">Ir para pagamento</button>
+    </div>
+  </article>
+</section>

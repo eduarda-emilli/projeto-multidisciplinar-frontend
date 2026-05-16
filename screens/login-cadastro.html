@@ -1,0 +1,52 @@
+﻿<section class="screen" id="screen-login" data-screen="login">
+  <article class="panel">
+    <h2>Acesso</h2>
+    <p class="muted">Cadastro e login na mesma tela.</p>
+    <div class="auth-grid">
+      <section class="auth-card">
+        <h3>Cadastro</h3>
+        <p class="muted">Crie sua conta para salvar pedidos e pontos.</p>
+        <form id="form-cadastro" class="form-grid">
+          <label for="cadastro-nome">Nome completo</label>
+          <input id="cadastro-nome" name="nome" type="text" required>
+          <label for="cadastro-email">E-mail</label>
+          <input id="cadastro-email" name="email" type="email" required>
+          <label for="cadastro-senha">Senha</label>
+          <input id="cadastro-senha" name="senha" type="password" minlength="4" required>
+          <button class="btn btn--primary" type="submit">Cadastrar</button>
+          <p class="feedback" id="feedback-cadastro" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="auth-card">
+        <h3>Login</h3>
+        <p class="muted">Faça login para finalizar pedidos e acompanhar status.</p>
+        <form id="form-login" class="form-grid">
+          <label for="login-canal">Canal de acesso</label>
+          <select id="login-canal" name="canal">
+            <option value="totem">Totem</option>
+            <option value="web" selected>Web</option>
+            <option value="app">App</option>
+          </select>
+          <label for="login-email">E-mail</label>
+          <input id="login-email" name="email" type="email" required>
+          <label for="login-senha">Senha</label>
+          <input id="login-senha" name="senha" type="password" minlength="4" required>
+          <fieldset class="consent-box">
+            <legend>Consentimento LGPD</legend>
+            <label class="check-row">
+              <input id="lgpd-obrigatorio" type="checkbox" required>
+              <span>Autorizo uso dos dados para processar pedido e pagamento (obrigatório).</span>
+            </label>
+            <label class="check-row">
+              <input id="lgpd-marketing" type="checkbox">
+              <span>Aceito receber ofertas e campanhas (opcional).</span>
+            </label>
+          </fieldset>
+          <button class="btn btn--primary" type="submit">Entrar</button>
+          <p class="feedback" id="feedback-login" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+  </article>
+</section>

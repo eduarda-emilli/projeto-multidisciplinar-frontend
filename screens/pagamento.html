@@ -1,0 +1,19 @@
+﻿<section class="screen" id="screen-pagamento" data-screen="pagamento">
+  <article class="panel panel--narrow">
+    <h2>Pagamento</h2>
+    <p class="muted">Escolha a forma de pagamento para concluir o pedido.</p>
+    <p class="channel-note" id="channel-note-pagamento"></p>
+    <form id="form-pagamento" class="form-grid">
+      <label for="pagamento-metodo">Método</label>
+      <select id="pagamento-metodo" name="metodo">
+        <option value="pix">Pix</option>
+        <option value="cartao">Cartão de crédito</option>
+        <option value="dinheiro">Dinheiro</option>
+      </select>
+      <label for="pagamento-observacao">Observação</label>
+      <input id="pagamento-observacao" name="obs" type="text" placeholder="Opcional">
+      <button class="btn btn--primary" type="submit">Confirmar pagamento</button>
+      <p class="feedback" id="feedback-pagamento" aria-live="polite"></p>
+    </form>
+  </article>
+</section>
