@@ -1,7 +1,14 @@
 ﻿// Estrutura separada e organizada por pastas
 const state = {
   route: "home",
-  users: [],
+  users: [
+    {
+      nome: "Administrador",
+      email: "admin@raizes.com",
+      senha: "admin1234",
+      role: "admin"
+    }
+  ],
   user: null,
   channel: "web",
   unit: "centro",
@@ -102,6 +109,10 @@ function cacheRefs() {
     feedbackCadastro: document.getElementById("feedback-cadastro"),
     feedbackLogin: document.getElementById("feedback-login"),
     feedbackPagamento: document.getElementById("feedback-pagamento"),
+    simToggleGroup: document.getElementById("sim-toggle-group"),
+    modoSimulacao: document.getElementById("modo-simulacao"),
+    gatewaySimGroup: document.getElementById("gateway-sim-group"),
+    pagamentoGateway: document.getElementById("pagamento-gateway"),
     feedbackStatus: document.getElementById("feedback-status"),
     menuGrid: document.getElementById("menu-grid"),
     cartList: document.getElementById("cart-list"),
@@ -155,6 +166,26 @@ function normalizeChannel(channel) {
     return value;
   }
   return "web";
+}
+
+function isAdminUser() {
+  return Boolean(state.user && state.user.role === "admin");
+}
+
+function updateSimulationAccess() {
+  const canSimulate = isAdminUser();
+  if (refs.simToggleGroup) {
+    refs.simToggleGroup.hidden = !canSimulate;
+  }
+  if (!canSimulate && refs.modoSimulacao) {
+    refs.modoSimulacao.checked = false;
+  }
+  if (refs.gatewaySimGroup) {
+    refs.gatewaySimGroup.hidden = !canSimulate || !refs.modoSimulacao?.checked;
+  }
+  if (!canSimulate && refs.pagamentoGateway) {
+    refs.pagamentoGateway.value = "approved";
+  }
 }
 
 function applyChannelExperience() {
@@ -416,7 +447,7 @@ function registerUser(event) {
     return;
   }
 
-  state.users.push({ nome, email, senha });
+  state.users.push({ nome, email, senha, role: "cliente" });
   setFeedback(refs.feedbackCadastro, "Cadastro realizado com sucesso.", "#13786d");
   event.currentTarget.reset();
   goTo("login");
@@ -448,8 +479,10 @@ function loginUser(event) {
   state.consent.required = true;
   state.consent.marketing = lgpdMarketing;
   applyChannelExperience();
+  updateSimulationAccess();
   renderLoyalty();
-  setFeedback(refs.feedbackLogin, `Bem-vindo, ${account.nome}.`, "#13786d");
+  const roleLabel = account.role === "admin" ? " (Admin)" : "";
+  setFeedback(refs.feedbackLogin, `Bem-vindo, ${account.nome}${roleLabel}.`, "#13786d");
   goTo("cardapio");
 }
 
@@ -462,6 +495,13 @@ function updateTimeline(step) {
 
 function processPayment(event) {
   event.preventDefault();
+  const form = event.currentTarget;
+  const submitButton = form.querySelector('button[type="submit"]');
+  const data = new FormData(event.currentTarget);
+  const simulationEnabled = isAdminUser() && refs.modoSimulacao ? refs.modoSimulacao.checked : false;
+  const gatewayStatus = simulationEnabled
+    ? String(data.get("gatewayStatus") || "approved")
+    : "approved";
 
   if (!state.user) {
     setFeedback(refs.feedbackPagamento, "Faça login antes de pagar.", "#b42318");
@@ -473,33 +513,66 @@ function processPayment(event) {
     return;
   }
 
-  const summary = calcTotals();
-  state.paymentDone = true;
-  state.orderInProgress = true;
-
-  setFeedback(refs.feedbackPagamento, `Pagamento aprovado. Total: ${toBRL(summary.total)}.`, "#13786d");
-
-  updateTimeline(1);
-  setTimeout(() => {
-    updateTimeline(2);
-    setFeedback(refs.feedbackStatus, "Pedido em preparo na cozinha.", "#9a6700");
-  }, 1000);
-
-  setTimeout(() => {
-    updateTimeline(3);
-    setFeedback(refs.feedbackStatus, "Pedido pronto para retirada/entrega.", "#13786d");
-    state.orderInProgress = false;
-  }, 2200);
-
-  const earned = Math.floor(summary.total / 4);
-  state.points += earned;
-  if (summary.useReward) {
-    state.points = Math.max(0, state.points - 100);
+  if (gatewayStatus === "declined") {
+    state.paymentDone = false;
+    setFeedback(
+      refs.feedbackPagamento,
+      "Pagamento recusado pelo serviço externo. Revise os dados ou escolha outro método para tentar novamente.",
+      "#b42318"
+    );
+    setFeedback(refs.feedbackStatus, "Pagamento não autorizado. Aguardando nova tentativa.", "#9a6700");
+    if (submitButton) {
+      submitButton.disabled = false;
+    }
+    return;
   }
 
-  state.cart = [];
-  renderLoyalty();
-  goTo("status");
+  const summary = calcTotals();
+  const earned = Math.floor(summary.total / 10);
+
+  if (submitButton) {
+    submitButton.disabled = true;
+  }
+  setFeedback(refs.feedbackPagamento, "Processando pagamento, aguarde alguns segundos...", "#9a6700");
+
+  setTimeout(() => {
+    state.paymentDone = true;
+    state.orderInProgress = true;
+
+    setFeedback(
+      refs.feedbackPagamento,
+      `Pagamento aprovado. Total: ${toBRL(summary.total)}. Foram adicionados ${earned} pontos.`,
+      "#13786d"
+    );
+
+    state.points += earned;
+    if (summary.useReward) {
+      state.points = Math.max(0, state.points - 100);
+    }
+
+    state.cart = [];
+    renderLoyalty();
+
+    setTimeout(() => {
+      updateTimeline(1);
+      setFeedback(refs.feedbackStatus, "Pagamento confirmado.", "#13786d");
+      goTo("status");
+
+      setTimeout(() => {
+        updateTimeline(2);
+        setFeedback(refs.feedbackStatus, "Pedido em preparo na cozinha.", "#9a6700");
+      }, 1000);
+
+      setTimeout(() => {
+        updateTimeline(3);
+        setFeedback(refs.feedbackStatus, "Pedido pronto para retirada/entrega.", "#13786d");
+        state.orderInProgress = false;
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
+      }, 2200);
+    }, 900);
+  }, 2200);
 }
 
 function handleUnitChange(event) {
@@ -553,6 +626,17 @@ function bindEvents() {
     state.selectedCoupon = event.target.value;
     renderCart();
   });
+
+  if (refs.modoSimulacao) {
+    refs.modoSimulacao.addEventListener("change", () => {
+      if (refs.gatewaySimGroup) {
+        refs.gatewaySimGroup.hidden = !isAdminUser() || !refs.modoSimulacao.checked;
+      }
+      if (!refs.modoSimulacao.checked && refs.pagamentoGateway) {
+        refs.pagamentoGateway.value = "approved";
+      }
+    });
+  }
 }
 
 async function init() {
@@ -566,6 +650,7 @@ async function init() {
   if (refs.footerYear) {
     refs.footerYear.textContent = String(new Date().getFullYear());
   }
+  updateSimulationAccess();
   applyChannelExperience();
   renderMenu();
   renderCart();

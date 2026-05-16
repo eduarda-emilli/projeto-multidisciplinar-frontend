@@ -11,6 +11,19 @@
         <option value="cartao">Cartão de crédito</option>
         <option value="dinheiro">Dinheiro</option>
       </select>
+      <div id="sim-toggle-group" hidden>
+        <label class="check-row">
+          <input id="modo-simulacao" name="modoSimulacao" type="checkbox">
+          <span>Ativar modo simulação de pagamento (apenas admin)</span>
+        </label>
+      </div>
+      <div id="gateway-sim-group" hidden>
+        <label for="pagamento-gateway">Retorno do serviço (simulação)</label>
+        <select id="pagamento-gateway" name="gatewayStatus">
+          <option value="approved" selected>Aprovado</option>
+          <option value="declined">Recusado</option>
+        </select>
+      </div>
       <label for="pagamento-observacao">Observação</label>
       <input id="pagamento-observacao" name="obs" type="text" placeholder="Opcional">
       <button class="btn btn--primary" type="submit">Confirmar pagamento</button>
