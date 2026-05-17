@@ -1,0 +1,27 @@
+﻿@media (min-width: 760px) {
+  .menu-toggle { display: none; }
+  .main-nav {
+    position: static;
+    display: flex;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .nav-btn { font-size: 0.92rem; text-align: center; }
+  .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .auth-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+
+@media (max-width: 759px) {
+  .site-footer { padding: 0.95rem 1rem; width: min(1100px, 100% - 0.8rem); }
+  .site-footer p { font-size: 0.95rem; }
+}
+
+@media (min-width: 1060px) {
+  .menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

@@ -1,0 +1,29 @@
+﻿.form-grid { display: grid; gap: 0.6rem; }
+.auth-grid { display: grid; gap: 0.9rem; }
+.auth-card { border: 1px solid var(--line); border-radius: 12px; background: #fffdf9; padding: 0.85rem; display: grid; gap: 0.6rem; }
+.auth-card h3 { margin: 0; }
+
+label,
+legend { font-weight: 600; font-size: 0.95rem; }
+
+input,
+select,
+button { font: inherit; }
+
+input,
+select { border: 1px solid #d6b28c; background: #fff; padding: 0.62rem 0.7rem; border-radius: 10px; }
+
+input:focus,
+select:focus,
+button:focus-visible { outline: 2px solid #e7a454; outline-offset: 2px; }
+
+.consent-box { margin: 0.25rem 0; border: 1px dashed #d59c6e; border-radius: 12px; padding: 0.65rem; display: grid; gap: 0.5rem; background: #fff8ee; }
+
+.check-row { display: flex; gap: 0.55rem; align-items: flex-start; }
+.check-row input { margin-top: 0.2rem; }
+
+.btn { border: 0; border-radius: 10px; padding: 0.66rem 0.84rem; font-weight: 700; cursor: pointer; }
+.btn--primary { background: linear-gradient(130deg, var(--primary), var(--primary-strong)); color: #fff; }
+.btn--soft { background: #f6efe3; border: 1px solid #d8b68f; color: var(--ink); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.feedback { min-height: 1.2rem; margin: 0; font-weight: 600; }

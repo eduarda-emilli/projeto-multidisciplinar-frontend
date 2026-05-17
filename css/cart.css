@@ -1,0 +1,17 @@
+﻿.cart-list { display: grid; gap: 0.6rem; }
+.coupon-box { border: 1px dashed #d8b28b; border-radius: 12px; background: #fff7ea; padding: 0.7rem; display: grid; gap: 0.45rem; }
+.cart-item { border: 1px solid var(--line); border-radius: 12px; background: #fffdf8; padding: 0.7rem; display: grid; gap: 0.45rem; }
+.cart-item.is-entering { animation: itemPop 0.38s ease; }
+.cart-row { display: flex; justify-content: space-between; gap: 0.5rem; }
+.qty-actions { display: flex; gap: 0.4rem; }
+.qty-btn { border: 1px solid #ceaa85; border-radius: 8px; background: #f8f0e4; padding: 0.18rem 0.5rem; cursor: pointer; }
+.totals { border-top: 1px solid var(--line); padding-top: 0.7rem; display: grid; gap: 0.35rem; }
+.totals p { margin: 0; display: flex; justify-content: space-between; }
+.total { font-size: 1.05rem; font-weight: 700; }
+.split-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.timeline { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.5rem; }
+.timeline li { color: #8f735f; }
+.timeline li.is-done { color: var(--secondary); font-weight: 700; }
+.loyalty-box { border: 1px solid #d4af87; border-radius: 12px; background: linear-gradient(145deg, #fff9ed, #ffebce); padding: 0.8rem; }
+.loyalty-box p, .loyalty-box strong { margin: 0; }
+.loyalty-box strong { font-size: 2rem; }

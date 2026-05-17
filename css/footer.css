@@ -1,0 +1,26 @@
+﻿.site-footer {
+  margin-top: 1.2rem;
+  width: min(1100px, 100% - 1.2rem);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 250, 241, 0.9);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 0.45rem;
+  place-items: center;
+  text-align: center;
+}
+
+.site-footer p { margin: 0; color: var(--ink); font-size: 0.98rem; line-height: 1.35; }
+.site-footer p:first-child { font-weight: 700; }
+.channel-pill--footer { justify-self: center; margin-top: 0.2rem; }
+
+body[data-channel="totem"] #channel-pill { background: #e8f8f0; border-color: #9fceaf; color: #1c6a3f; }
+body[data-channel="app"] #channel-pill { background: #fff2dc; border-color: #efbf76; color: #975511; }
+body[data-channel="web"] .site-footer { border-color: #d6b28c; background: rgba(255, 248, 236, 0.94); }
+body[data-channel="app"] .site-footer { border-color: #efbf76; background: rgba(255, 244, 224, 0.95); }
+body[data-channel="totem"] .site-footer { border-color: #9fceaf; background: rgba(235, 250, 240, 0.95); }
